@@ -1,6 +1,5 @@
 #include "interface.h"
 
-
 int main() {
 
 	type_selection();

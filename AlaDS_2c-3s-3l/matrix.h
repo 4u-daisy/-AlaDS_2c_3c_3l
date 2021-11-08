@@ -141,15 +141,16 @@ public:
 		}
 		return c;
 	}
+
 	matrix<T, my_comparator>& operator+=(const matrix& rhs) {
 		if (_rows != rhs._rows || _columns != rhs._columns)
 			throw std::logic_error("Matrices with different sizes cannot be added!");
 		for (int i = 0; i < _columns; i++) {
 			for (int j = 0; j < _rows; j++) {
-				_matr[i][j] += rhs._matr[i][j];
+				_matr[i][j] = _matr[i][j] + rhs._matr[i][j];
 			}
 		}
-		return this;
+		return *this;
 	}
 	matrix<T, my_comparator>& operator-=(const matrix& rhs) {
 		if (_rows != rhs._rows || _columns != rhs._columns)
@@ -159,23 +160,23 @@ public:
 				_matr[i][j] -= rhs._matr[i][j];
 			}
 		}
-		return this;
+		return *this;
 	}
-	matrix<T, my_comparator>& operator*=(const matrix& rhs) {
+	matrix<T, my_comparator>& operator*=(const T rhs) {
 		for (int i = 0; i < _columns; i++) {
 			for (int j = 0; j < _rows; j++) {
 				_matr[i][j] *= rhs;
 			}
 		}
-		return this;
+		return *this;
 	}
-	matrix<T, my_comparator>& operator/=(const matrix& rhs) {
+	matrix<T, my_comparator>& operator/=(const T rhs) {
 		for (int i = 0; i < _columns; i++) {
 			for (int j = 0; j < _rows; j++) {
 				_matr[i][j] *= rhs;
 			}
 		}
-		return this;
+		return *this;
 	}
 
 	bool operator==(const matrix& rhs) {
