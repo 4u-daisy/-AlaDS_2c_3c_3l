@@ -1,4 +1,5 @@
 #include "matrix.h"
+
 /*
 В данной работе необходимо улучшить свой класс из предыдущей лабораторной работы,
 полностью делегировав управление памятью стандартному контейнеру.
@@ -13,48 +14,99 @@ std::list/std::forward_list (в зависимости от того, использовали вы массив или с
 
 */
 
+//template<class T>
+//bool Example(matrix<T> firstMatrix, matrix<T> secondMatrix, T realPartfirstMatrix = 0, T realPartSecondMatrix = 0) {
+//	if (_columns != rhs._columns || _rows != rhs._rows)
+//		throw std::logic_error("Matrices of different sizes!");
+//	for (int i = 0; i < _columns; i++) {
+//		for (int j = 0; j < _rows; j++) {
+//			if()
+//				return false;
+//		}
+//	}
+//}
 
-matrix<int> random_matrix(const int col, const int row) {
-	matrix<int> mtr(col, row);
-	for (int i = 0; i < col; i++) {
-		for (int j = 0; j < row; j++) {
-			mtr(i, j) = ((rand() + 1) * (rand() + 1)) % 9;
+template<class T>
+bool comparator(matrix<T> firstMatrix, matrix<T> secondMatrix) {
+	if (firstMatrix.get_col() != secondMatrix.get_col() || firstMatrix.get_row() != secondMatrix.get_row())
+		return false;
+	for (int i = 0; i < firstMatrix.get_col(); i++) {
+		for (int j = 0; j < firstMatrix.get_row(); j++) {
+			if (firstMatrix(i, j).real() != secondMatrix(i, j).real() ||
+				firstMatrix(i, j).imag() != secondMatrix(i, j).imag())
+				return false;
 		}
 	}
-	return mtr;
+	return true;
 }
 
+//template <class T>
+//bool complex_matrix_comparator(const matrix<T>& lhs, const matrix<T>& rhs) {
+//	return lhs(0, 0).real() == rhs(0, 0).real() ? lhs(0, 0).imag() < rhs(0, 0).imag() : lhs(0, 0).real() < rhs(0, 0).real();
+//}
+
+//template <class T>
+//bool complex_comparator(const T lhs, const T rhs) {
+//	return lhs.real() == rhs.real() ? lhs.imag() < rhs.imag() : lhs.real() < rhs.real();
+//}
+
+template <class T>
+bool complex_comparator(const T lhs, const T rhs) {
+	return lhs.real() == rhs.real() ? lhs.imag() < rhs.imag() : lhs.real() < rhs.real();
+}
+
+//template <class T>
+//bool comprare(matrix<T> firstMatrix, matrix<T> secondMatrix) {
+//	for (int i = 0; i < firstMatrix.get_col(); i++) {
+//		for (int j = 0; j < firstMatrix.get_row(); j++) {
+//			if (std::is_same(std::complex<double>)) {
+//				if (!complex_comparator(firstMatrix(i, j), secondMatrix(i, j)))
+//					return false;
+//			}
+//			else
+//				if (firstMatrix(i, j) != secondMatrix(i, j))
+//					return false;
+//			}
+//	}
+//}
+
+
+struct MyComparator {
+	bool operator()(int a, int b) {
+		return b < a;
+	}
+};
+
+template<typename T, typename TComparator = std::less < T>>
+struct ClassWithComparator {
+	void Demo() const {
+		int a = 5;
+		int b = 10;
+		std::cout << TComparator()(a, b) << std::endl;
+	}
+};
 
 int main() {
 
-	//const int rows = 3, columns = 2;
-	//std::vector<std::vector<int>> example(columns, std::vector<int>(rows));
-	//for (auto& col : example) {
-	//	for (auto& row : col) {
-	//		std::cout << "Input data: ";
-	//		std::cin >> row;
-	//	}
-	//}
-	//example[0][2] = 2;
-	//for (auto& col : example) {
-	//	for (auto& row : col) {
-	//		std::cout << "Print data: " << row << "   ";
-	//	}
-	//	std::cout << '\n';
-	//}
+	ClassWithComparator<int> o1;
+	ClassWithComparator<int, MyComparator> o2;
+	o1.Demo();
+	o2.Demo();
+
+
+	matrix<std::complex<double>> mtr(2, 2);
+	matrix<std::complex<double>> mtr2(2, 2);
+
+	matrix<float> mtr3(2, 2);
+	matrix<float> mtr4(2, 2);
+
+
+	std::cin >> mtr;
+
+	std::cout << matrix_trace(mtr);
 	
-	matrix<int> mtr(3, 3);
-	matrix<int> mtr2;
-	matrix<int> mtr3(3, 5);
+	//bool flag = comp(mtr, mtr2);
 
-	mtr2.set_columns(3);
-	mtr2.set_rows(3);
-
-	mtr = random_matrix(3, 3);
-	mtr2 = random_matrix(3, 3);
-	
-
-	std::cout << mtr  << "\n\n" << mtr2 << "\n\n" << mtr2 * mtr;
 
 	return 0;
 }
