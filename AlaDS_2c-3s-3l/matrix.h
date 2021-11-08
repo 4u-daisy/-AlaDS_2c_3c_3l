@@ -4,7 +4,19 @@
 #include <complex>
 #include <vector>
 
-template <class T>
+struct MyComparator {
+	bool operator()(std::complex<double> lhs, std::complex<double> rhs) const {
+		return lhs.real() < rhs.real();
+	}
+	bool operator()(std::complex<int> lhs, std::complex<int> rhs) const {
+		return lhs.real() < rhs.real();
+	}
+	bool operator()(std::complex<float> lhs, std::complex<float> rhs) const {
+		return lhs.real() < rhs.real();
+	}
+};
+
+template <typename T, typename TComparator = std::less < T>>
 class matrix {
 private:
 	std::vector<std::vector<T>> _matr;
@@ -54,7 +66,19 @@ public:
 		return _matr[columns][rows];
 	}
 
-	//matrix<T> operator+(const matrix& rhs);
+	matrix<T, MyComparator> operator+(const matrix& rhs) {
+		if (_rows != rhs._rows || _columns != rhs._columns)
+			throw std::logic_error("Matrices with different sizes cannot be added!");
+
+		matrix<T, MyComparator> c(_columns, _rows);
+
+		for (int i = 0; i < c._columns; i++) {
+			for (int j = 0; j < c._rows; j++) {
+				c._matr[i][j] = _matr[i][j] + rhs._matr[i][j];
+			}
+		}
+		return c;
+	}
 	//matrix<T> operator-(const matrix& rhs);
 	//matrix<T> operator*(const matrix& rhs);
 	//matrix<T> operator*(const T rhs);
@@ -75,8 +99,23 @@ public:
 		return !this->operator==(rhs);
 	}
 
-	//bool operator>=(const matrix& rhs) {}
+	bool operator<(const matrix& rhs) {
+		if (_rows != rhs._rows || _columns != rhs._columns)
+			throw std::logic_error("Matrices of different sizes!");
 
+		for (int i = 0; i < _columns; i++) {
+			for (int j = 0; j < _rows; j++) {
+				if (TComparator()(_matr[i][j], rhs._matr[i][j]))
+					return false;
+			}
+		}
+		return true;
+	}
+	bool operator>(const matrix& rhs) {
+		return !this->operator>(rhs);
+	}
+
+	//bool operator>=(const matrix& rhs) {}
 	//bool operator>=(const matrix& rhs) {
 	//	if (_columns != rhs._columns || _rows != rhs._rows)
 	//		throw std::logic_error("Matrices of different sizes!");
@@ -98,13 +137,10 @@ public:
 	//bool operator<=(const matrix& rhs);
 	//bool operator>(const matrix& rhs);
 	//bool operator<(const matrix& rhs);
-
-
-
 };
 
 template<class T>
-double matrix_trace(const matrix<std::complex<T>>& lhs) {
+double matrix_trace(const matrix<std::complex<T>,MyComparator>& lhs) {
 	if (lhs.get_col() != lhs.get_row())
 		throw std::logic_error("The matrix is not square!");
 	double res = 0;
@@ -114,7 +150,7 @@ double matrix_trace(const matrix<std::complex<T>>& lhs) {
 	return res;
 }
 template<class T>
-double matrix_trace(const matrix<T>& lhs) {
+double matrix_trace(const matrix<T, MyComparator>& lhs) {
 	if ( lhs.get_col() != lhs.get_row())
 		throw std::logic_error("The matrix is not square!");
 	double res = 0;
@@ -123,11 +159,8 @@ double matrix_trace(const matrix<T>& lhs) {
 	}
 	return res;
 }
-
-
-
 template<class T>
-std::ostream& operator<< (std::ostream& out, const matrix<T>& lhs) {
+std::ostream& operator<< (std::ostream& out, const matrix<T, MyComparator>& lhs) {
 	for (int i = 0; i < lhs.get_col(); i++) {
 		for (int j = 0; j < lhs.get_row(); j++) {
 			out << lhs(i, j) << '\t';
@@ -138,7 +171,7 @@ std::ostream& operator<< (std::ostream& out, const matrix<T>& lhs) {
 }
 
 template<class T>
-std::istream& operator>> (std::istream& in, matrix<T>& lhs) {
+std::istream& operator>> (std::istream& in, matrix<T, MyComparator>& lhs) {
 	for (int i = 0; i < lhs.get_col(); i++) {
 		for (int j = 0; j < lhs.get_row(); j++) {
 			std::cout << "Input data [" << i << "][" << j << "] - ";
@@ -148,7 +181,7 @@ std::istream& operator>> (std::istream& in, matrix<T>& lhs) {
 	return in;
 }
 template<class T>
-std::istream& operator>>(std::istream& in, matrix<std::complex <T>>& lhs) {
+std::istream& operator>>(std::istream& in, matrix<std::complex <T>, MyComparator>& lhs) {
 	for (int i = 0; i < lhs.get_col(); i++) {
 		for (int j = 0; j < lhs.get_row(); j++) {
 			T real = 0, imagine = 0;

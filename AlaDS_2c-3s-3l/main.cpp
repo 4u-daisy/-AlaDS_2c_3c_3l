@@ -71,7 +71,8 @@ bool complex_comparator(const T lhs, const T rhs) {
 //}
 
 
-struct MyComparator {
+
+struct MyComparator1 {
 	bool operator()(int a, int b) {
 		return b < a;
 	}
@@ -88,22 +89,31 @@ struct ClassWithComparator {
 
 int main() {
 
-	ClassWithComparator<int> o1;
-	ClassWithComparator<int, MyComparator> o2;
-	o1.Demo();
-	o2.Demo();
+	//ClassWithComparator<int> o1;
+	//ClassWithComparator<int, MyComparator1> o2;
+	//o1.Demo();
+	//o2.Demo();
+	
+	//matrix<std::complex<double>, MyComparator> mtr9(2, 2);
 
+	matrix<std::complex<double>, MyComparator> mtr(2, 2);
+	matrix<std::complex<double>, MyComparator> mtr2(2, 2);
 
-	matrix<std::complex<double>> mtr(2, 2);
-	matrix<std::complex<double>> mtr2(2, 2);
+	matrix<float, MyComparator> mtr3(2, 2);
+	matrix<float, MyComparator> mtr4(2, 2);
 
-	matrix<float> mtr3(2, 2);
-	matrix<float> mtr4(2, 2);
+	std::cin >> mtr >> mtr2;
 
+	std::cin >> mtr3 >> mtr4;
 
-	std::cin >> mtr;
+	std::cout << mtr;
 
-	std::cout << matrix_trace(mtr);
+	std::cout << mtr3 + mtr4;
+
+	////bool flag = mtr < mtr2;
+	//bool flag1 = mtr3 < mtr4;
+
+	//std::cout << matrix_trace(mtr);
 	
 	//bool flag = comp(mtr, mtr2);
 
