@@ -72,11 +72,11 @@ void two_matrix_operations(matrix<T, my_comparator> first_matrix, matrix<T, my_c
 		std::cout << "Enter the data of the second matrix.\n" << std::endl;
 		add_matrix(second_matrix);
 		if (key == 49)
-			std::cout << first_matrix + second_matrix;
+			std::cout << "\nCalculating the addition of two matrices\nRESULT IS:\n" << first_matrix + second_matrix;
 		if (key == 50)
-			std::cout << first_matrix - second_matrix;
+			std::cout << "\nCalculating the subtraction of two matrices\nRESULT IS:\n" << first_matrix - second_matrix;
 		if (key == 51)
-			std::cout << first_matrix * second_matrix;
+			std::cout << "\nCalculating the multiplication of two matrices\nRESULT IS:\n"<<first_matrix * second_matrix;
 	}
 	catch (std::exception& e) {
 		std::cerr << "\nCaught: " << e.what() << std::endl;
@@ -90,15 +90,15 @@ void single_matrix_operations(matrix<T, my_comparator> first_matrix, int key) {
 	try {
 		std::cout << "\nEnter matrix data.\n" << std::endl;
 		add_matrix(first_matrix);
-		if (key == 54)
-			std::cout << "RESULT IS: " << matrix_trace(first_matrix) << std::endl;
+		if (key == 54) 
+			std::cout << "\nCalculating the trace of a matrix\nRESULT IS: " << matrix_trace(first_matrix) << std::endl;
 		else {
 			double numb = 0;
 			input_correctly_number(numb);
-			if (key == 52)
-				std::cout << first_matrix * (T)numb;
+			if (key == 52) 
+				std::cout << "\nCalculating matrix multiplication\nRESULT IS:\n" << first_matrix * (T)numb;
 			if (key == 53)
-				std::cout << first_matrix / (T)numb;
+				std::cout << "\nCalculating division of a matrix\nRESULT IS:\n" << first_matrix / (T)numb;
 		}
 	}
 	catch (std::exception& e) {
