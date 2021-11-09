@@ -6,13 +6,13 @@
 
 struct my_comparator {
 	bool operator()(std::complex<double> lhs, std::complex<double> rhs) const {
-		return lhs.real() < rhs.real();
+		return lhs.real() == rhs.real() ? lhs.imag() < rhs.imag() : lhs.real() < rhs.real();
 	}
 	bool operator()(std::complex<int> lhs, std::complex<int> rhs) const {
-		return lhs.real() < rhs.real();
+		return lhs.real() == rhs.real() ? lhs.imag() < rhs.imag() : lhs.real() < rhs.real();
 	}
 	bool operator()(std::complex<float> lhs, std::complex<float> rhs) const {
-		return lhs.real() < rhs.real();
+		return lhs.real() == rhs.real() ? lhs.imag() < rhs.imag() : lhs.real() < rhs.real();
 	}
 	bool operator()(float lhs, float rhs) const {
 		return lhs < rhs;
@@ -63,7 +63,7 @@ public:
 	}
 	
 	void swap(const matrix& rhs) {
-		matrix<T> tmp = rhs;
+		matrix<T, my_comparator> tmp = rhs;
 		std::swap(_columns, tmp._columns);
 		std::swap(_rows, tmp._rows);
 		std::swap(_matr, tmp._matr);
@@ -198,7 +198,7 @@ public:
 			return false;
 		for (int i = 0; i < _columns; i++) {
 			for (int j = 0; j < _rows; j++) {
-				if (!TComparator()(_matr[i][j], rhs._matr[i][j]))
+				if (TComparator()(_matr[i][j], rhs._matr[i][j]))
 					return false;
 			}
 		}
@@ -212,7 +212,7 @@ public:
 			return false;
 		for (int i = 0; i < _columns; i++) {
 			for (int j = 0; j < _rows; j++) {
-				if (!TComparator()(_matr[i][j], rhs._matr[i][j]) && _matr[i][j] != rhs._matr[i][j])
+				if (TComparator()(_matr[i][j], rhs._matr[i][j]) && _matr[i][j] != rhs._matr[i][j])
 					return false;
 			}
 		}
@@ -234,7 +234,6 @@ public:
 	auto cend() {
 		return _matr.cend();
 	}
-
 };
 
 template<class T>

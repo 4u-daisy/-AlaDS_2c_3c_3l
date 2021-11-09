@@ -116,18 +116,30 @@ void result_is_comprare(matrix<T, my_comparator> first_matrix, matrix<T, my_comp
 		std::cout << "Enter the data of the second matrix.\n" << std::endl;
 		add_matrix(second_matrix);
 		std::cout << "\n\nRESULT IS: ";
-		if (key == 49)
+		if (key == 49) {
+			std::cout << "First Matrix == Second Matrixd is: ";
 			first_matrix == second_matrix ? std::cout << "TRUE." : std::cout << "FALSE. ";
-		if (key == 50)
+		}
+		if (key == 50) {
+			std::cout << "First Matrix != Second Matrixd is: ";
 			first_matrix != second_matrix ? std::cout << "TRUE." : std::cout << "FALSE. ";
-		if (key == 51)
+		}
+		if (key == 51) {
+			std::cout << "First Matrix >= Second Matrixd is: ";
 			first_matrix >= second_matrix ? std::cout << "TRUE." : std::cout << "FALSE. ";
-		if (key == 52)
+		}
+		if (key == 52) {
+			std::cout << "First Matrix <= Second Matrixd is: ";
 			first_matrix <= second_matrix ? std::cout << "TRUE." : std::cout << "FALSE. ";
-		if (key == 53)
+		}
+		if (key == 53) {
+			std::cout << "First Matrix > Second Matrixd is: ";
 			first_matrix > second_matrix ? std::cout << "TRUE." : std::cout << "FALSE. ";
-		if (key == 54)
+		}
+		if (key == 54) {
+			std::cout << "First Matrix == Second Matrixd is: ";
 			first_matrix < second_matrix ? std::cout << "TRUE." : std::cout << "FALSE. ";
+		}
 	}
 	catch (std::exception& e) {
 		std::cerr << "\nCaught: " << e.what() << std::endl;
@@ -142,8 +154,9 @@ void comprare_matrix(matrix<T, my_comparator> first_matrix, matrix<T, my_compara
 		int key = type_comprare();
 		if (key == 13 || key == 27)
 			break;
-		if (key >= 49 && key <= 54)
+		if (key >= 49 && key <= 54) {
 			result_is_comprare(first_matrix, second_matrix, key);
+		}
 	}
 }
 
