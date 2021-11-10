@@ -41,7 +41,7 @@ int type_comprare() {
 	}
 }
 
-template <class T>
+template <typename T>
 void input_correctly_number(T& numb) {
 	do {
 		std::cout << "\nInput number: ";
@@ -51,7 +51,7 @@ void input_correctly_number(T& numb) {
 	} while (std::cin.fail());
 }
 
-template <class T>
+template <typename T>
 void add_matrix(matrix<T, my_comparator>& a) {
 	unsigned int colums = 0, rows = 0;
 	std::cout << "Enter the number of columns: ";
@@ -85,7 +85,7 @@ void two_matrix_operations(matrix<T, my_comparator> first_matrix, matrix<T, my_c
 	int click_to_continue = get_key();
 }
 
-template <class T>
+template <typename T>
 void single_matrix_operations(matrix<T, my_comparator> first_matrix, int key) {
 	try {
 		std::cout << "\nEnter matrix data.\n" << std::endl;
@@ -108,7 +108,7 @@ void single_matrix_operations(matrix<T, my_comparator> first_matrix, int key) {
 	int click_to_continue = get_key();
 }
 
-template <class T>
+template <typename T>
 void result_is_comprare(matrix<T, my_comparator> first_matrix, matrix<T, my_comparator> second_matrix, int key) {
 	try {
 		std::cout << "\nEnter the data of the first matrix.\n" << std::endl;
@@ -148,7 +148,7 @@ void result_is_comprare(matrix<T, my_comparator> first_matrix, matrix<T, my_comp
 	int click_to_continue = get_key();
 }
 
-template <class T>
+template <typename T>
 void comprare_matrix(matrix<T, my_comparator> first_matrix, matrix<T, my_comparator> second_matrix) {
 	while (true) {
 		int key = type_comprare();
@@ -160,7 +160,7 @@ void comprare_matrix(matrix<T, my_comparator> first_matrix, matrix<T, my_compara
 	}
 }
 
-template <class T>
+template <typename T>
 void operation_selection(matrix<T, my_comparator> first_matrix, matrix<T, my_comparator> second_matrix) {
 	while (true) {
 		int key = operations_menu();

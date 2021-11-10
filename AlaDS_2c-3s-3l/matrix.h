@@ -236,7 +236,7 @@ public:
 	}
 };
 
-template<class T>
+template<typename T>
 double matrix_trace(const matrix<std::complex<T>,my_comparator>& lhs) {
 	if (lhs.get_columns() != lhs.get_rows())
 		throw std::logic_error("The matrix is not square!");
@@ -246,7 +246,7 @@ double matrix_trace(const matrix<std::complex<T>,my_comparator>& lhs) {
 	}
 	return res;
 }
-template<class T>
+template<typename T>
 double matrix_trace(const matrix<T, my_comparator>& lhs) {
 	if ( lhs.get_columns() != lhs.get_rows())
 		throw std::logic_error("The matrix is not square!");
@@ -256,7 +256,7 @@ double matrix_trace(const matrix<T, my_comparator>& lhs) {
 	}
 	return res;
 }
-template<class T>
+template<typename T>
 std::ostream& operator<< (std::ostream& out, const matrix<T, my_comparator>& lhs) {
 	for (int i = 0; i < lhs.get_columns(); i++) {
 		for (int j = 0; j < lhs.get_rows(); j++) {
@@ -267,7 +267,7 @@ std::ostream& operator<< (std::ostream& out, const matrix<T, my_comparator>& lhs
 	return out;
 }
 
-template<class T>
+template<typename T>
 std::istream& operator>> (std::istream& in, matrix<T, my_comparator>& lhs) {
 	for (int i = 0; i < lhs.get_columns(); i++) {
 		for (int j = 0; j < lhs.get_rows(); j++) {
@@ -277,7 +277,7 @@ std::istream& operator>> (std::istream& in, matrix<T, my_comparator>& lhs) {
 	}
 	return in;
 }
-template<class T>
+template<typename T>
 std::istream& operator>>(std::istream& in, matrix<std::complex <T>, my_comparator>& lhs) {
 	for (int i = 0; i < lhs.get_columns(); i++) {
 		for (int j = 0; j < lhs.get_rows(); j++) {
