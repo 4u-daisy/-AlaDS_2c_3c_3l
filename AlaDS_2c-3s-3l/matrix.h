@@ -4,7 +4,7 @@
 #include <complex>
 #include <vector>
 
-struct my_comparator {
+struct comparator_for_class_matrix {
 	bool operator()(std::complex<double> lhs, std::complex<double> rhs) const {
 		return lhs.real() == rhs.real() ? lhs.imag() < rhs.imag() : lhs.real() < rhs.real();
 	}
@@ -63,7 +63,7 @@ public:
 	}
 	
 	void swap(const matrix& rhs) {
-		matrix<T, my_comparator> tmp = rhs;
+		matrix<T, comparator_for_class_matrix> tmp = rhs;
 		std::swap(_columns, tmp._columns);
 		std::swap(_rows, tmp._rows);
 		std::swap(_matr, tmp._matr);
@@ -84,10 +84,10 @@ public:
 		return _matr[columns][rows];
 	}
 
-	matrix<T, my_comparator> operator+(const matrix& rhs) {
+	matrix<T, comparator_for_class_matrix> operator+(const matrix& rhs) {
 		if (_rows != rhs._rows || _columns != rhs._columns)
 			throw std::logic_error("Matrices with different sizes cannot be added!");
-		matrix<T, my_comparator> c(_columns, _rows);
+		matrix<T, comparator_for_class_matrix> c(_columns, _rows);
 		for (int i = 0; i < c._columns; i++) {
 			for (int j = 0; j < c._rows; j++) {
 				c._matr[i][j] = _matr[i][j] + rhs._matr[i][j];
@@ -95,11 +95,11 @@ public:
 		}
 		return c;
 	}
-	matrix<T, my_comparator> operator-(const matrix& rhs) {
+	matrix<T, comparator_for_class_matrix> operator-(const matrix& rhs) {
 		if (_rows != rhs._rows || _columns != rhs._columns)
 			throw std::logic_error("Matrices with different sizes cannot be added!");
 
-		matrix<T, my_comparator> c(_columns, _rows);
+		matrix<T, comparator_for_class_matrix> c(_columns, _rows);
 
 		for (int i = 0; i < c._columns; i++) {
 			for (int j = 0; j < c._rows; j++) {
@@ -108,10 +108,10 @@ public:
 		}
 		return c;
 	}
-	matrix<T, my_comparator> operator*(const matrix& rhs) {
+	matrix<T, comparator_for_class_matrix> operator*(const matrix& rhs) {
 		if (_rows != rhs._columns)
 			throw std::logic_error("Matrices of different sizes!");
-		matrix<T, my_comparator> c(_columns, rhs._rows);
+		matrix<T, comparator_for_class_matrix> c(_columns, rhs._rows);
 
 		for (int i = 0; i < _columns; i++) {
 			for (int j = 0; j < rhs._rows; j++) {
@@ -123,8 +123,8 @@ public:
 		}
 		return c;
 	}
-	matrix<T, my_comparator> operator*(const T rhs) {
-		matrix<T, my_comparator> c(_columns, _rows);
+	matrix<T, comparator_for_class_matrix> operator*(const T rhs) {
+		matrix<T, comparator_for_class_matrix> c(_columns, _rows);
 		for (int i = 0; i < _columns; i++) {
 			for (int j = 0; j < _rows; j++) {
 				c._matr[i][j] = _matr[i][j] * rhs;
@@ -132,8 +132,8 @@ public:
 		}
 		return c;
 	}
-	matrix<T, my_comparator> operator/(const T rhs) {
-		matrix<T, my_comparator> c(_columns, _rows);
+	matrix<T, comparator_for_class_matrix> operator/(const T rhs) {
+		matrix<T, comparator_for_class_matrix> c(_columns, _rows);
 		for (int i = 0; i < _columns; i++) {
 			for (int j = 0; j < _rows; j++) {
 				c._matr[i][j] = _matr[i][j] / rhs;
@@ -142,7 +142,7 @@ public:
 		return c;
 	}
 
-	matrix<T, my_comparator>& operator+=(const matrix& rhs) {
+	matrix<T, comparator_for_class_matrix>& operator+=(const matrix& rhs) {
 		if (_rows != rhs._rows || _columns != rhs._columns)
 			throw std::logic_error("Matrices with different sizes cannot be added!");
 		for (int i = 0; i < _columns; i++) {
@@ -152,7 +152,7 @@ public:
 		}
 		return *this;
 	}
-	matrix<T, my_comparator>& operator-=(const matrix& rhs) {
+	matrix<T, comparator_for_class_matrix>& operator-=(const matrix& rhs) {
 		if (_rows != rhs._rows || _columns != rhs._columns)
 			throw std::logic_error("Matrices with different sizes cannot be added!");
 		for (int i = 0; i < _columns; i++) {
@@ -162,7 +162,7 @@ public:
 		}
 		return *this;
 	}
-	matrix<T, my_comparator>& operator*=(const T rhs) {
+	matrix<T, comparator_for_class_matrix>& operator*=(const T rhs) {
 		for (int i = 0; i < _columns; i++) {
 			for (int j = 0; j < _rows; j++) {
 				_matr[i][j] *= rhs;
@@ -170,7 +170,7 @@ public:
 		}
 		return *this;
 	}
-	matrix<T, my_comparator>& operator/=(const T rhs) {
+	matrix<T, comparator_for_class_matrix>& operator/=(const T rhs) {
 		for (int i = 0; i < _columns; i++) {
 			for (int j = 0; j < _rows; j++) {
 				_matr[i][j] *= rhs;
@@ -237,7 +237,7 @@ public:
 };
 
 template<typename T>
-double matrix_trace(const matrix<std::complex<T>,my_comparator>& lhs) {
+double matrix_trace(const matrix<std::complex<T>,comparator_for_class_matrix>& lhs) {
 	if (lhs.get_columns() != lhs.get_rows())
 		throw std::logic_error("The matrix is not square!");
 	double res = 0;
@@ -247,7 +247,7 @@ double matrix_trace(const matrix<std::complex<T>,my_comparator>& lhs) {
 	return res;
 }
 template<typename T>
-double matrix_trace(const matrix<T, my_comparator>& lhs) {
+double matrix_trace(const matrix<T, comparator_for_class_matrix>& lhs) {
 	if ( lhs.get_columns() != lhs.get_rows())
 		throw std::logic_error("The matrix is not square!");
 	double res = 0;
@@ -257,7 +257,7 @@ double matrix_trace(const matrix<T, my_comparator>& lhs) {
 	return res;
 }
 template<typename T>
-std::ostream& operator<< (std::ostream& out, const matrix<T, my_comparator>& lhs) {
+std::ostream& operator<< (std::ostream& out, const matrix<T, comparator_for_class_matrix>& lhs) {
 	for (int i = 0; i < lhs.get_columns(); i++) {
 		for (int j = 0; j < lhs.get_rows(); j++) {
 			out << lhs(i, j) << '\t';
@@ -268,7 +268,7 @@ std::ostream& operator<< (std::ostream& out, const matrix<T, my_comparator>& lhs
 }
 
 template<typename T>
-std::istream& operator>> (std::istream& in, matrix<T, my_comparator>& lhs) {
+std::istream& operator>> (std::istream& in, matrix<T, comparator_for_class_matrix>& lhs) {
 	for (int i = 0; i < lhs.get_columns(); i++) {
 		for (int j = 0; j < lhs.get_rows(); j++) {
 			std::cout << "Input data [" << i << "][" << j << "] - ";
@@ -278,7 +278,7 @@ std::istream& operator>> (std::istream& in, matrix<T, my_comparator>& lhs) {
 	return in;
 }
 template<typename T>
-std::istream& operator>>(std::istream& in, matrix<std::complex <T>, my_comparator>& lhs) {
+std::istream& operator>>(std::istream& in, matrix<std::complex <T>, comparator_for_class_matrix>& lhs) {
 	for (int i = 0; i < lhs.get_columns(); i++) {
 		for (int j = 0; j < lhs.get_rows(); j++) {
 			T real = 0, imagine = 0;

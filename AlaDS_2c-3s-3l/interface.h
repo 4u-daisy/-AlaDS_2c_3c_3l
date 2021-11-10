@@ -52,7 +52,7 @@ void input_correctly_number(T& numb) {
 }
 
 template <typename T>
-void add_matrix(matrix<T, my_comparator>& a) {
+void add_matrix(matrix<T, comparator_for_class_matrix>& a) {
 	unsigned int colums = 0, rows = 0;
 	std::cout << "Enter the number of columns: ";
 	input_correctly_number(colums);
@@ -64,8 +64,8 @@ void add_matrix(matrix<T, my_comparator>& a) {
 	std::cin >> a;
 }
 
-template <class T>
-void two_matrix_operations(matrix<T, my_comparator> first_matrix, matrix<T, my_comparator> second_matrix, int key) {
+template <typename T>
+void two_matrix_operations(matrix<T, comparator_for_class_matrix> first_matrix, matrix<T, comparator_for_class_matrix> second_matrix, int key) {
 	try {
 		std::cout << "\nEnter the data of the first matrix.\n" << std::endl;
 		add_matrix(first_matrix);
@@ -86,7 +86,7 @@ void two_matrix_operations(matrix<T, my_comparator> first_matrix, matrix<T, my_c
 }
 
 template <typename T>
-void single_matrix_operations(matrix<T, my_comparator> first_matrix, int key) {
+void single_matrix_operations(matrix<T, comparator_for_class_matrix> first_matrix, int key) {
 	try {
 		std::cout << "\nEnter matrix data.\n" << std::endl;
 		add_matrix(first_matrix);
@@ -109,7 +109,7 @@ void single_matrix_operations(matrix<T, my_comparator> first_matrix, int key) {
 }
 
 template <typename T>
-void result_is_comprare(matrix<T, my_comparator> first_matrix, matrix<T, my_comparator> second_matrix, int key) {
+void result_is_comprare(matrix<T, comparator_for_class_matrix> first_matrix, matrix<T, comparator_for_class_matrix> second_matrix, int key) {
 	try {
 		std::cout << "\nEnter the data of the first matrix.\n" << std::endl;
 		add_matrix(first_matrix);
@@ -149,7 +149,7 @@ void result_is_comprare(matrix<T, my_comparator> first_matrix, matrix<T, my_comp
 }
 
 template <typename T>
-void comprare_matrix(matrix<T, my_comparator> first_matrix, matrix<T, my_comparator> second_matrix) {
+void comprare_matrix(matrix<T, comparator_for_class_matrix> first_matrix, matrix<T, comparator_for_class_matrix> second_matrix) {
 	while (true) {
 		int key = type_comprare();
 		if (key == 13 || key == 27)
@@ -161,7 +161,7 @@ void comprare_matrix(matrix<T, my_comparator> first_matrix, matrix<T, my_compara
 }
 
 template <typename T>
-void operation_selection(matrix<T, my_comparator> first_matrix, matrix<T, my_comparator> second_matrix) {
+void operation_selection(matrix<T, comparator_for_class_matrix> first_matrix, matrix<T, comparator_for_class_matrix> second_matrix) {
 	while (true) {
 		int key = operations_menu();
 		if (key >= 49 && key <= 51)
@@ -179,23 +179,23 @@ void type_selection() {
 	while (true) {
 		int key = type_menu();
 		if (key == 49) {
-			matrix<int, my_comparator> first_int_matrix, second_int_matrix;
+			matrix<int, comparator_for_class_matrix> first_int_matrix, second_int_matrix;
 			operation_selection(first_int_matrix, second_int_matrix);
 		}
 		if (key == 50) {
-			matrix<float, my_comparator> first_float_matrix, second_float_matrix;
+			matrix<float, comparator_for_class_matrix> first_float_matrix, second_float_matrix;
 			operation_selection(first_float_matrix, second_float_matrix);
 		}
 		if (key == 51) {
-			matrix<double, my_comparator> first_double_matrix, second_double_matrix;
+			matrix<double, comparator_for_class_matrix> first_double_matrix, second_double_matrix;
 			operation_selection(first_double_matrix, second_double_matrix);
 		}
 		if (key == 52) {
-			matrix<std::complex<float>, my_comparator> first_complex_float_matrix, second_complex_double_matrix;
+			matrix<std::complex<float>, comparator_for_class_matrix> first_complex_float_matrix, second_complex_double_matrix;
 			operation_selection(first_complex_float_matrix, second_complex_double_matrix);
 		}
 		if (key == 53) {
-			matrix<std::complex<double>, my_comparator> first_complex_double_matrix, second_complex_double_matrix;
+			matrix<std::complex<double>, comparator_for_class_matrix> first_complex_double_matrix, second_complex_double_matrix;
 			operation_selection(first_complex_double_matrix, second_complex_double_matrix);
 		}
 		if (key == 13 || key == 27)
